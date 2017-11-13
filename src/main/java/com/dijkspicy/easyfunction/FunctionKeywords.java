@@ -6,7 +6,7 @@ package com.dijkspicy.easyfunction;
  * @Author dijkspicy
  * @Date 2017/11/11
  */
-public interface FnKeywords {
+public interface FunctionKeywords {
     String SOURCE = "SOURCE";
     String TARGET = "TARGET";
     String SELF = "SELF";

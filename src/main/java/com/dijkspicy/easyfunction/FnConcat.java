@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 class FnConcat implements Fn {
     @Override
-    public Object calculate(Object param, FnContext context) throws FnException {
+    public Object calculate(Object param, FunctionContext context) throws FunctionException {
         List<String> list = this.convertFromParam(param);
         return list.stream().reduce("", String::concat);
     }

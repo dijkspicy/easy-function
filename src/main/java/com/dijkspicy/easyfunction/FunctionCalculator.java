@@ -13,15 +13,15 @@ import java.util.stream.Stream;
  * @Author dijkspicy
  * @Date 2017/11/12
  */
-public class FnCalculator {
-    private final FnContext context;
+public class FunctionCalculator {
+    private final FunctionContext context;
 
-    public FnCalculator(FnContext context) {
+    public FunctionCalculator(FunctionContext context) {
         this.context = context;
     }
 
     public Object calculate(Object javaObject) {
-        return this.calculate(javaObject, FnProperty.All.class);
+        return this.calculate(javaObject, FunctionProperty.All.class);
     }
 
     public Object calculate(final Object javaObject, Class<? extends Annotation> anno) {
@@ -44,7 +44,7 @@ public class FnCalculator {
     }
 
     public Object calculateNotation(String notation) {
-        return FnFactory.create(FnKeywords.GET_NOTATION).calculate(notation, this.context);
+        return FunctionFactory.create(FunctionKeywords.GET_NOTATION).calculate(notation, this.context);
     }
 
     @SuppressWarnings("unchecked")
@@ -79,7 +79,7 @@ public class FnCalculator {
         if (!(key instanceof String)) {
             return map;
         }
-        return FnFactory.create((String) key).calculate(map.values().iterator().next(), this.context);
+        return FunctionFactory.create((String) key).calculate(map.values().iterator().next(), this.context);
     }
 
     private void setValue(Object javaObject, Field field, Class<? extends Annotation> anno) {
@@ -115,7 +115,7 @@ public class FnCalculator {
                         return false;
                     }
                 })
-                .filter(it -> anno.equals(FnProperty.All.class) || it.getAnnotationsByType(anno) != null)
+                .filter(it -> anno.equals(FunctionProperty.All.class) || it.getAnnotationsByType(anno) != null)
                 .collect(Collectors.toList());
         out.addAll(this.getCalculatableFields(javaObject, javaClass.getSuperclass(), anno));
         return out;

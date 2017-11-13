@@ -7,5 +7,5 @@ package com.dijkspicy.easyfunction;
  * @Date 2017/11/11
  */
 public interface Fn {
-    Object calculate(Object param, FnContext context) throws FnException;
+    Object calculate(Object param, FunctionContext context) throws FunctionException;
 }

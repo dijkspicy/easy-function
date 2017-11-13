@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 class FnJoin implements Fn {
     @Override
-    public Object calculate(Object param, FnContext context) throws FnException {
+    public Object calculate(Object param, FunctionContext context) throws FunctionException {
         Join join = this.convertFromParam(param);
         return join.list.stream().reduce("", (foo, bar) -> foo.concat(join.delimiter).concat(bar));
     }
@@ -22,7 +22,7 @@ class FnJoin implements Fn {
         if (param instanceof Collection) {
             Collection<?> collection = (Collection<?>) param;
             if (collection.size() < 2) {
-                throw new FnException("FnJoin needs at least two args");
+                throw new FunctionException("FnJoin needs at least two args");
             }
 
             List<?> list = new ArrayList<>(collection);
@@ -32,7 +32,7 @@ class FnJoin implements Fn {
             }
         }
 
-        throw new FnException("invalid param for FnParam");
+        throw new FunctionException("invalid param for FnParam");
     }
 
     class Join {

@@ -1,7 +1,7 @@
 package other.pkg;
 
-import com.dijkspicy.easyfunction.FnFactory;
 import com.dijkspicy.easyfunction.FnNotation;
+import com.dijkspicy.easyfunction.FunctionFactory;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,6 +13,6 @@ import org.junit.jupiter.api.Test;
 public class UseCase {
     @Test
     void test() {
-        FnFactory.registerFunction("", FnNotation.class);
+        FunctionFactory.registerFunction("", FnNotation.class);
     }
 }

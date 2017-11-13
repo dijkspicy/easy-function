@@ -13,7 +13,7 @@ import java.util.List;
  * @Author dijkspicy
  * @Date 2017/11/11
  */
-public class FnFactory implements FnKeywords {
+public class FunctionFactory implements FunctionKeywords {
     private static final List<Module> MODULES = new ArrayList<>();
 
     public static Fn create(String fnName) {
