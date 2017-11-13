@@ -44,7 +44,7 @@ public class FunctionCalculator {
     }
 
     public Object calculateNotation(String notation) {
-        return FunctionFactory.create(FunctionKeywords.GET_NOTATION).calculate(notation, this.context);
+        return new FnNotation().calculate(notation, this.context);
     }
 
     @SuppressWarnings("unchecked")
@@ -123,8 +123,8 @@ public class FunctionCalculator {
 
     // TODO fnNotation
     private boolean isFnNotation(Object javaObject) {
-        FnNotation fnNotation = this.context.getFnNotation();
-        return javaObject instanceof String && fnNotation != null && fnNotation.getPredicate().test((String) javaObject);
+        return javaObject instanceof String
+                && FnNotation.getPredicate().test((String) javaObject);
     }
 
     /**

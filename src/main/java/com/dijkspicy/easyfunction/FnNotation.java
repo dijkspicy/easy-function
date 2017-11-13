@@ -1,5 +1,7 @@
 package com.dijkspicy.easyfunction;
 
+import java.util.function.Predicate;
+
 /**
  * easy-function
  *
@@ -9,6 +11,10 @@ package com.dijkspicy.easyfunction;
 class FnNotation implements Fn {
     @Override
     public Object calculate(Object param, FunctionContext context) throws FunctionException {
+        return null;
+    }
+
+    public static Predicate<String> getPredicate() {
         return null;
     }
 }

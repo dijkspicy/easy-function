@@ -21,7 +21,6 @@ public @interface FunctionProperty {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.FIELD)
     @interface All {
 
     }
