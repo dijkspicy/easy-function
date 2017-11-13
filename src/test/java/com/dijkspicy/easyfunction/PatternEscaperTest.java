@@ -14,7 +14,7 @@ class PatternEscaperTest {
         System.out.println(PatternEscaper.escape("test.adsf"));
         System.out.println(PatternEscaper.escape(".test.adsf"));
         System.out.println(PatternEscaper.escape("test.adsf."));
-        System.out.println(PatternEscaper.escape("te!st\\.adsf"));
+        System.out.println(PatternEscaper.escape("te[st\\.adsf"));
         System.out.println(PatternEscaper.escape("\\.test.adsf"));
         System.out.println(PatternEscaper.escape("test.adsf\\."));
         System.out.println(PatternEscaper.escape("test\\\\.adsf"));
