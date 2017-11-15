@@ -41,7 +41,7 @@ public interface FunctionKeywords {
     String GET_INPUT = FN_KEYWORDS.getProperty("GET_INPUT", "get_input");
     String GET_PROPERTY = FN_KEYWORDS.getProperty("GET_PROPERTY", "get_property");
     String GET_ATTRIBUTE = FN_KEYWORDS.getProperty("GET_ATTRIBUTE", "get_attribute");
-    String GET_OPERATION_OUT = FN_KEYWORDS.getProperty("GET_OPERATION_OUT", "get_operation_out");
+    String GET_OPERATION_OUTPUT = FN_KEYWORDS.getProperty("GET_OPERATION_OUTPUT", "get_operation_output");
     String GET_NODES_OF_TYPE = FN_KEYWORDS.getProperty("GET_NODES_OF_TYPE", "get_nodes_of_type");
     String GET_ARTIFACT = FN_KEYWORDS.getProperty("GET_ARTIFACT", "get_artifact");
     String NOTATION = FN_KEYWORDS.getProperty("NOTATION", "notation");

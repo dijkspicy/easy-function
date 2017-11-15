@@ -38,9 +38,9 @@ abstract class FnGetParameter implements Fn {
                 .orElseThrow(() -> new FunctionException(this.getFnName() + " must contain 1 arg at least: " + param))
                 .toArray();
 
-        String entityName = OptionalString.ofNullable(array[0]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s first arg can't be null: " + param));
+        String entityName = OptionalString.ofNullable(array[0]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s 1st arg can't be null: " + param));
         if (array.length >= 2) {
-            String propertyName = OptionalString.ofNullable(array[1]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s second arg can't be null: " + param));
+            String propertyName = OptionalString.ofNullable(array[1]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s 2nd arg can't be null: " + param));
             if (array.length > 2) {
                 Object[] nestedPropertyNameOrIndex = new Object[array.length - 2];
                 System.arraycopy(array, 2, nestedPropertyNameOrIndex, 0, nestedPropertyNameOrIndex.length);

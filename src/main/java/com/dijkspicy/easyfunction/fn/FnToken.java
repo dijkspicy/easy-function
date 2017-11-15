@@ -36,8 +36,8 @@ class FnToken implements Fn {
     private Parameters convert(Object param) {
         Collection<?> collection = OptionalCollection.ofSizable(param, 3).orElseThrow(() -> new FunctionException("invalid " + this.getFnName() + " param: " + param));
         Object[] array = collection.toArray();
-        String var0 = OptionalString.ofNullable(array[0]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s first arg can't be null"));
-        String var1 = OptionalString.ofNullable(array[1]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s second arg can't be null"));
+        String var0 = OptionalString.ofNullable(array[0]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s 1st arg can't be null"));
+        String var1 = OptionalString.ofNullable(array[1]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s 2nd arg can't be null"));
         Object var2 = array[2];
         if (var2 instanceof Number) {
             return new Parameters(var0, var1, ((Number) var2).intValue());
@@ -46,7 +46,7 @@ class FnToken implements Fn {
                 int index = Integer.parseUnsignedInt(String.valueOf(var2));
                 return new Parameters(var0, var1, index);
             } catch (NumberFormatException e) {
-                throw new FunctionException(this.getFnName() + "'s third arg must be a number");
+                throw new FunctionException(this.getFnName() + "'s 3rd arg must be a number");
             }
         }
     }

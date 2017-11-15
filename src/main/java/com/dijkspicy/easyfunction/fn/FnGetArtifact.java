@@ -12,21 +12,31 @@ import com.dijkspicy.easyfunction.util.OptionalString;
  * @Date 2017/11/13
  */
 class FnGetArtifact implements Fn {
+    private static final String LOCAL_FILE = "LOCAL_FILE";
+
+    static String getArtifactKey(String entityName, String artifactName) {
+        return entityName + "." + artifactName;
+    }
+
     @Override
     public Object calculate(Object param, FunctionContext context) throws FunctionException {
         Parameters parameters = this.convert(param);
-        return null;
+        String key = getArtifactKey(parameters.entityName, parameters.artifactName);
+        if (LOCAL_FILE.equals(parameters.location) || parameters.remove) {
+            return context.getFnArtifacts().remove(key);
+        }
+        return context.getFnArtifacts().get(key);
     }
 
     private Parameters convert(Object param) {
         Object[] array = OptionalCollection.ofSizable(param, 2)
                 .orElseThrow(() -> new FunctionException("invalid param for " + this.getFnName()))
                 .toArray();
-        String entityName = OptionalString.ofNullable(array[0]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s first arg can't be null: " + param));
-        String artifactName = OptionalString.ofNullable(array[1]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s second arg can't be null: " + param));
-        if (array.length >= 3) {
+        String entityName = OptionalString.ofNullable(array[0]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s 1st arg can't be null: " + param));
+        String artifactName = OptionalString.ofNullable(array[1]).orElseThrow(() -> new FunctionException(this.getFnName() + "'s 2nd arg can't be null: " + param));
+        if (array.length > 2) {
             String location = OptionalString.ofNullable(array[2]).orElse(null);
-            if (array.length >= 4) {
+            if (array.length > 3) {
                 boolean remove = Boolean.parseBoolean(String.valueOf(array[3]));
                 return new Parameters(entityName, artifactName, location, remove);
             }

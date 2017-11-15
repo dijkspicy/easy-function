@@ -22,7 +22,7 @@ class FnJoin implements Fn {
     public Object calculate(Object param, FunctionContext context) throws FunctionException {
         Parameters parameters = this.convertFromParam(param);
         return OptionalString.of(parameters.delimiter).isPresent()
-                ? parameters.list.stream().reduce(JOIN_PREFIX, (foo, bar) -> foo.concat(parameters.delimiter).concat(bar))
+                ? parameters.list.stream().reduce(JOIN_PREFIX, (foo, bar) -> JOIN_PREFIX.equals(foo) ? bar : foo.concat(parameters.delimiter).concat(bar))
                 : parameters.list.stream().reduce(JOIN_PREFIX, String::concat);
     }
 

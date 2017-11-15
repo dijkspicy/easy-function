@@ -4,6 +4,9 @@ import com.dijkspicy.easyfunction.Fn;
 import com.dijkspicy.easyfunction.FunctionException;
 import org.apache.commons.lang3.Validate;
 
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * easy-function
  *
@@ -16,6 +19,10 @@ class FnGetNodesOfType implements Fn {
         Validate.notNull(param);
 
         String nodeTypeName = param.toString();
-        return null;
+        Set<Object> nodes = context.getFnNodesOfType().get(nodeTypeName);
+        if (nodes == null) {
+            return Collections.emptyList();
+        }
+        return nodes;
     }
 }
