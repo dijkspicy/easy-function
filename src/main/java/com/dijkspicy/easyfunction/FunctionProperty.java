@@ -14,14 +14,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface FunctionProperty {
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.FIELD)
-    @interface Not {
-
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface All {
-
-    }
+    boolean value() default true;
 }

@@ -1,5 +1,7 @@
 package com.dijkspicy.easyfunction;
 
+import com.dijkspicy.easyfunction.fn.FunctionCalculator;
+import com.dijkspicy.easyfunction.fn.FunctionContext;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;

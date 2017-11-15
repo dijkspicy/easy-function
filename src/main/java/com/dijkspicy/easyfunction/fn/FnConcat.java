@@ -1,4 +1,7 @@
-package com.dijkspicy.easyfunction;
+package com.dijkspicy.easyfunction.fn;
+
+import com.dijkspicy.easyfunction.Fn;
+import org.apache.commons.lang3.Validate;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,13 +15,17 @@ import java.util.stream.Collectors;
  * @Date 2017/11/12
  */
 class FnConcat implements Fn {
+    private static final String CONCAT_PREFIX = "";
+
     @Override
-    public Object calculate(Object param, FunctionContext context) throws FunctionException {
-        List<String> list = this.convertFromParam(param);
-        return list.stream().reduce("", String::concat);
+    public Object calculate(Object param, FunctionContext context) {
+        Validate.notNull(param);
+
+        List<String> list = this.convert(param);
+        return list.stream().reduce(CONCAT_PREFIX, String::concat);
     }
 
-    private List<String> convertFromParam(Object param) {
+    private List<String> convert(Object param) {
         if (param instanceof Collection) {
             return ((Collection<?>) param)
                     .stream()

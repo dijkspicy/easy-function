@@ -1,4 +1,7 @@
-package com.dijkspicy.easyfunction;
+package com.dijkspicy.easyfunction.fn;
+
+import com.dijkspicy.easyfunction.Calculator;
+import com.dijkspicy.easyfunction.FunctionProperty;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -13,17 +16,14 @@ import java.util.stream.Stream;
  * @Author dijkspicy
  * @Date 2017/11/12
  */
-public class FunctionCalculator {
+final class FunctionCalculator implements Calculator {
     private final FunctionContext context;
 
     public FunctionCalculator(FunctionContext context) {
         this.context = context;
     }
 
-    public Object calculate(Object javaObject) {
-        return this.calculate(javaObject, FunctionProperty.All.class);
-    }
-
+    @Override
     public Object calculate(final Object javaObject, Class<? extends Annotation> anno) {
         if (null == javaObject) {
             return null;
@@ -43,10 +43,12 @@ public class FunctionCalculator {
         }
     }
 
+    @Override
     public Object calculateNotation(String notation) {
-        return new FnNotation().calculate(notation, this.context);
+        return FunctionFactory.create(NOTATION).calculate(notation, this.context);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public Object calculateMap(Map map, Class<? extends Annotation> anno) {
         List<Object> calculatedKeys = new ArrayList<>();
@@ -60,14 +62,6 @@ public class FunctionCalculator {
         });
         calculatedKeys.forEach(map::remove);
         return this.fnCalculate(map);
-    }
-
-    @SuppressWarnings("unchecked")
-    public Object calculateCollection(Collection collection, Class<? extends Annotation> anno) {
-        List list = new ArrayList(collection);
-        collection.clear();
-        list.forEach(it -> collection.add(this.calculate(it, anno)));
-        return collection;
     }
 
     private Object fnCalculate(Map map) {
@@ -108,14 +102,27 @@ public class FunctionCalculator {
         List<Field> out = Stream.of(javaClass.getDeclaredFields())
                 .filter(it -> !Modifier.toString(it.getModifiers()).contains("final"))
                 .filter(it -> {
+                    if (anno == null) {
+                        return true;
+                    }
+
+                    Annotation annoValue = it.getAnnotation(anno);
+                    if (annoValue instanceof FunctionProperty) {
+                        return ((FunctionProperty) annoValue).value();
+                    }
+                    return annoValue != null;
+                })
+                .filter(it -> {
+                    boolean accessible = it.isAccessible();
                     it.setAccessible(true);
                     try {
                         return this.isBasicType(it.get(javaObject));
                     } catch (IllegalAccessException e) {
                         return false;
+                    } finally {
+                        it.setAccessible(accessible);
                     }
                 })
-                .filter(it -> anno.equals(FunctionProperty.All.class) || it.getAnnotationsByType(anno) != null)
                 .collect(Collectors.toList());
         out.addAll(this.getCalculatableFields(javaObject, javaClass.getSuperclass(), anno));
         return out;
@@ -124,7 +131,7 @@ public class FunctionCalculator {
     // TODO fnNotation
     private boolean isFnNotation(Object javaObject) {
         return javaObject instanceof String
-                && FnNotation.getPredicate().test((String) javaObject);
+                && false;
     }
 
     /**

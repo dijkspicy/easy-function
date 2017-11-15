@@ -1,4 +1,4 @@
-package com.dijkspicy.easyfunction;
+package com.dijkspicy.easyfunction.util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
  * @Author dijkspicy
  * @Date 2017/11/13
  */
-public class PatternEscaper {
+public final class PatternEscaper {
     private static final Map<Character, String> MAPPINGS = new HashMap<>();
 
     static {

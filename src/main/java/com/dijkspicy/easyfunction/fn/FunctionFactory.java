@@ -1,5 +1,7 @@
-package com.dijkspicy.easyfunction;
+package com.dijkspicy.easyfunction.fn;
 
+import com.dijkspicy.easyfunction.Fn;
+import com.dijkspicy.easyfunction.FunctionKeywords;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
 
@@ -13,7 +15,7 @@ import java.util.List;
  * @Author dijkspicy
  * @Date 2017/11/11
  */
-public class FunctionFactory implements FunctionKeywords {
+public final class FunctionFactory implements FunctionKeywords {
     private static final List<Module> MODULES = new ArrayList<>();
 
     public static Fn create(String fnName) {

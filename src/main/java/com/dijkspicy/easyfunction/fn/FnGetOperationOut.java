@@ -1,4 +1,4 @@
-package com.dijkspicy.easyfunction;
+package com.dijkspicy.easyfunction.fn;
 
 /**
  * easy-function
@@ -6,5 +6,5 @@ package com.dijkspicy.easyfunction;
  * @Author dijkspicy
  * @Date 2017/11/13
  */
-class FnGetAttribute {
+class FnGetOperationOut {
 }

@@ -4,7 +4,7 @@ package com.dijkspicy.easyfunction;
  * easy-function
  *
  * @Author dijkspicy
- * @Date 2017/11/13
+ * @Date 2017/11/14
  */
-class FnToken {
+public final class EasyFunction {
 }

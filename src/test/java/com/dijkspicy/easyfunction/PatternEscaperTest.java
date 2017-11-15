@@ -1,5 +1,6 @@
 package com.dijkspicy.easyfunction;
 
+import com.dijkspicy.easyfunction.util.PatternEscaper;
 import org.junit.jupiter.api.Test;
 
 /**
