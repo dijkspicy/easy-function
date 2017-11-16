@@ -18,7 +18,7 @@ import java.util.Collection;
  * @Author dijkspicy
  * @Date 2017/11/13
  */
-class FnToken implements Fn {
+public class FnToken implements Fn {
     @Override
     public Object calculate(Object param, FunctionContext context) {
         Parameters parameters = this.convert(param);

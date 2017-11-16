@@ -1,7 +1,5 @@
-package com.dijkspicy.easyfunction.fn;
+package com.dijkspicy.easyfunction;
 
-import com.dijkspicy.easyfunction.Fn;
-import com.dijkspicy.easyfunction.FunctionKeywords;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
 

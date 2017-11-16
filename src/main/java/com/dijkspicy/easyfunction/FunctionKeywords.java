@@ -15,11 +15,11 @@ import java.util.Properties;
 public interface FunctionKeywords {
     Properties FN_KEYWORDS = new Properties() {
         {
-            InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("function.properties");
+            InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("function-keywords.properties");
             try {
                 FN_KEYWORDS.load(stream);
             } catch (IOException e) {
-                LoggerFactory.getLogger(FunctionKeywords.class).error("failed to load function.properties, error: " + e.getMessage(), e);
+                LoggerFactory.getLogger(FunctionKeywords.class).error("failed to load function-keywords.properties, error: " + e.getMessage(), e);
             }
         }
     };

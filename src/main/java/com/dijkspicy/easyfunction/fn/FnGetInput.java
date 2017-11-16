@@ -12,15 +12,19 @@ import java.util.Optional;
  * @Author dijkspicy
  * @Date 2017/11/13
  */
-class FnGetInput implements Fn {
+public class FnGetInput implements Fn {
     @Override
     public Object calculate(Object param, FunctionContext context) throws FunctionException {
-        Validate.notNull(param);
+        Validate.notNull(param, this.getFnName() + " needs a non-null value");
 
         String inputPropertyName = param.toString();
         return Optional.ofNullable(context.getFnInputs())
-                .orElseThrow(() -> new FunctionException("no FnGetInput context defined"))
+                .orElseThrow(() -> new FunctionException("no " + this.getFnName() + " context defined"))
                 .get()
                 .get(inputPropertyName);
+    }
+
+    public String getFnName() {
+        return GET_INPUT;
     }
 }

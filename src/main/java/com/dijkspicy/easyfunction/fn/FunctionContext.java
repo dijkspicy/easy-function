@@ -9,17 +9,17 @@ import java.util.function.Supplier;
  * @Author dijkspicy
  * @Date 2017/11/11
  */
-public class FunctionContext {
-    private final Map<String, Map<String, Object>> fnGetOperationOutput = new Hashtable<>();
+public abstract class FunctionContext {
+    private final Map<String, Supplier<Map<String, Object>>> fnGetOperationOutput = new Hashtable<>();
     private final Map<String, Supplier<Object>> fnArtifacts = new Hashtable<>();
     private final Map<String, Set<Object>> fnNodesOfType = new Hashtable<>();
     private final Map<String, Supplier<Map<String, Object>>> fnProperties = new Hashtable<>();
     private final Map<String, Supplier<Map<String, Object>>> fnAttributes = new Hashtable<>();
     private Supplier<Map<String, Object>> fnInputs = Collections::emptyMap;
 
-    public final FunctionContext addArtifact(String entityName, String interfaceName, String operationName, Map<String, Object> output) {
+    public final FunctionContext addArtifact(String entityName, String interfaceName, String operationName, Supplier<Map<String, Object>> outputSupplier) {
         String key = FnGetOperationOutput.getOperationKey(entityName, interfaceName, operationName);
-        this.fnGetOperationOutput.put(key, output);
+        this.fnGetOperationOutput.put(key, outputSupplier);
         return this;
     }
 
@@ -54,7 +54,7 @@ public class FunctionContext {
         return this;
     }
 
-    public Map<String, Map<String, Object>> getFnGetOperationOutput() {
+    public Map<String, Supplier<Map<String, Object>>> getFnGetOperationOutput() {
         return fnGetOperationOutput;
     }
 

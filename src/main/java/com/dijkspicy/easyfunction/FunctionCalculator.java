@@ -1,7 +1,7 @@
-package com.dijkspicy.easyfunction.fn;
+package com.dijkspicy.easyfunction;
 
-import com.dijkspicy.easyfunction.Calculator;
-import com.dijkspicy.easyfunction.FunctionProperty;
+import com.dijkspicy.easyfunction.fn.FnNotation;
+import com.dijkspicy.easyfunction.fn.FunctionContext;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -10,20 +10,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 /**
  * easy-function
  *
  * @Author dijkspicy
  * @Date 2017/11/12
  */
-final class FunctionCalculator implements Calculator {
+final class FunctionCalculator implements FunctionKeywords {
     private final FunctionContext context;
 
     public FunctionCalculator(FunctionContext context) {
         this.context = context;
     }
 
-    @Override
     public Object calculate(final Object javaObject, Class<? extends Annotation> anno) {
         if (null == javaObject) {
             return null;
@@ -43,12 +43,18 @@ final class FunctionCalculator implements Calculator {
         }
     }
 
-    @Override
+    public Object calculate(Object javaObject) {
+        return this.calculate(javaObject, null);
+    }
+
     public Object calculateNotation(String notation) {
         return FunctionFactory.create(NOTATION).calculate(notation, this.context);
     }
 
-    @Override
+    public Object calculateMap(Map map) {
+        return this.calculateMap(map, null);
+    }
+
     @SuppressWarnings("unchecked")
     public Object calculateMap(Map map, Class<? extends Annotation> anno) {
         List<Object> calculatedKeys = new ArrayList<>();
@@ -62,6 +68,17 @@ final class FunctionCalculator implements Calculator {
         });
         calculatedKeys.forEach(map::remove);
         return this.fnCalculate(map);
+    }
+
+    public Object calculateCollection(Collection collection) {
+        return this.calculateCollection(collection, null);
+    }
+
+    public Object calculateCollection(Collection collection, Class<? extends Annotation> anno) {
+        List list = new ArrayList(collection);
+        collection.clear();
+        list.forEach(it -> collection.add(this.calculate(it, anno)));
+        return collection;
     }
 
     private Object fnCalculate(Map map) {
@@ -128,10 +145,9 @@ final class FunctionCalculator implements Calculator {
         return out;
     }
 
-    // TODO fnNotation
     private boolean isFnNotation(Object javaObject) {
         return javaObject instanceof String
-                && false;
+                && FnNotation.getPredicate().test((String) javaObject);
     }
 
     /**

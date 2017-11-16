@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @Author dijkspicy
  * @Date 2017/11/12
  */
-class FnJoin implements Fn {
+public class FnJoin implements Fn {
     private static final String JOIN_PREFIX = "";
 
     @Override

@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
  * @Author dijkspicy
  * @Date 2017/11/12
  */
-class FnConcat implements Fn {
+public class FnConcat implements Fn {
     private static final String CONCAT_PREFIX = "";
 
     @Override
     public Object calculate(Object param, FunctionContext context) {
-        Validate.notNull(param);
+        Validate.notNull(param, this.getFnName() + " needs a non-null value");
 
         List<String> list = this.convert(param);
         return list.stream().reduce(CONCAT_PREFIX, String::concat);
@@ -33,5 +33,9 @@ class FnConcat implements Fn {
                     .collect(Collectors.toList());
         }
         return Collections.singletonList((String) param);
+    }
+
+    public String getFnName() {
+        return CONCAT;
     }
 }

@@ -11,7 +11,7 @@ import com.dijkspicy.easyfunction.util.OptionalString;
  * @Author dijkspicy
  * @Date 2017/11/13
  */
-class FnGetArtifact implements Fn {
+public class FnGetArtifact implements Fn {
     private static final String LOCAL_FILE = "LOCAL_FILE";
 
     static String getArtifactKey(String entityName, String artifactName) {

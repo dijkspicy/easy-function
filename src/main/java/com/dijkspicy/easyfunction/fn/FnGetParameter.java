@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  * @Author dijkspicy
  * @Date 2017/11/13
  */
-abstract class FnGetParameter implements Fn {
+public abstract class FnGetParameter implements Fn {
     @Override
     public Object calculate(Object param, FunctionContext context) throws FunctionException {
         Parameters parameters = this.convert(param);

@@ -7,6 +7,7 @@ import com.dijkspicy.easyfunction.util.OptionalCollection;
 import com.dijkspicy.easyfunction.util.OptionalString;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * easy-function
@@ -14,7 +15,7 @@ import java.util.Map;
  * @Author dijkspicy
  * @Date 2017/11/13
  */
-class FnGetOperationOutput implements Fn {
+public class FnGetOperationOutput implements Fn {
     static String getOperationKey(String entityName, String interfaceName, String operationName) {
         return entityName + "." + interfaceName + "." + operationName;
     }
@@ -23,13 +24,14 @@ class FnGetOperationOutput implements Fn {
     public Object calculate(Object param, FunctionContext context) throws FunctionException {
         Parameters parameters = this.convert(param);
         String key = getOperationKey(parameters.entityName, parameters.interfaceName, parameters.operationName);
-        Map<String, Object> output = context.getFnGetOperationOutput().get(key);
-        if (output == null) {
+        Supplier<Map<String, Object>> supplier = context.getFnGetOperationOutput().get(key);
+        if (supplier == null) {
             throw new FunctionException("no operation output named: " + key);
         }
+        Map<String, Object> value = supplier.get();
         return parameters.outputVariableName == null
-                ? output
-                : JsonPathReader.read(output, parameters.outputVariableName);
+                ? value
+                : JsonPathReader.read(value, parameters.outputVariableName);
     }
 
     private Parameters convert(Object param) {

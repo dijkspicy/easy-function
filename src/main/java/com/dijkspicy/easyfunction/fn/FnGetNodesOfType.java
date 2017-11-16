@@ -13,10 +13,10 @@ import java.util.Set;
  * @Author dijkspicy
  * @Date 2017/11/13
  */
-class FnGetNodesOfType implements Fn {
+public class FnGetNodesOfType implements Fn {
     @Override
     public Object calculate(Object param, FunctionContext context) throws FunctionException {
-        Validate.notNull(param);
+        Validate.notNull(param, this.getFnName() + " needs a non-null value");
 
         String nodeTypeName = param.toString();
         Set<Object> nodes = context.getFnNodesOfType().get(nodeTypeName);
@@ -24,5 +24,9 @@ class FnGetNodesOfType implements Fn {
             return Collections.emptyList();
         }
         return nodes;
+    }
+
+    public String getFnName() {
+        return GET_NODES_OF_TYPE;
     }
 }

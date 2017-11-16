@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @Author dijkspicy
  * @Date 2017/11/15
  */
-class FnGetProperty extends FnGetParameter {
+public class FnGetProperty extends FnGetParameter {
     @Override
     Map<String, Supplier<Map<String, Object>>> getFn(FunctionContext context) {
         return context.getFnProperties();
