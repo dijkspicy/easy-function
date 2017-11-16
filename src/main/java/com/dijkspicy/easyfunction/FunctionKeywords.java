@@ -19,7 +19,17 @@ public interface FunctionKeywords {
             try {
                 FN_KEYWORDS.load(stream);
             } catch (IOException e) {
-                LoggerFactory.getLogger(FunctionKeywords.class).error("failed to load function-keywords.properties, error: " + e.getMessage(), e);
+                LoggerFactory.getLogger("function-keywords.properties").error("failed to load function-keywords.properties, error: " + e.getMessage(), e);
+            }
+        }
+    };
+    Properties FN_REGISTER = new Properties() {
+        {
+            InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("function-register.properties");
+            try {
+                FN_KEYWORDS.load(stream);
+            } catch (IOException e) {
+                LoggerFactory.getLogger("function-register.properties").error("failed to load function-register.properties, error: " + e.getMessage(), e);
             }
         }
     };
@@ -30,9 +40,9 @@ public interface FunctionKeywords {
     String HOST = "HOST";
 
     // config
-    String TOKEN_ALGORITHM = "md5";
-    String NOTATION_PREFIX = "${";
-    String NOTATION_SUFFIX = "}";
+    String TOKEN_ALGORITHM = FN_KEYWORDS.getProperty("TOKEN_ALGORITHM", "MD5");
+    String NOTATION_PREFIX = FN_KEYWORDS.getProperty("NOTATION_PREFIX", "${");
+    String NOTATION_SUFFIX = FN_KEYWORDS.getProperty("NOTATION_SUFFIX", "}");
 
     // default function names
     String CONCAT = FN_KEYWORDS.getProperty("CONCAT", "concat");
@@ -44,5 +54,4 @@ public interface FunctionKeywords {
     String GET_OPERATION_OUTPUT = FN_KEYWORDS.getProperty("GET_OPERATION_OUTPUT", "get_operation_output");
     String GET_NODES_OF_TYPE = FN_KEYWORDS.getProperty("GET_NODES_OF_TYPE", "get_nodes_of_type");
     String GET_ARTIFACT = FN_KEYWORDS.getProperty("GET_ARTIFACT", "get_artifact");
-    String NOTATION = FN_KEYWORDS.getProperty("NOTATION", "notation");
 }

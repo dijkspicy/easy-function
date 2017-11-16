@@ -48,7 +48,7 @@ final class FunctionCalculator implements FunctionKeywords {
     }
 
     public Object calculateNotation(String notation) {
-        return FunctionFactory.create(NOTATION).calculate(notation, this.context);
+        return new FnNotation().calculate(notation, this.context);
     }
 
     public Object calculateMap(Map map) {
@@ -90,7 +90,7 @@ final class FunctionCalculator implements FunctionKeywords {
         if (!(key instanceof String)) {
             return map;
         }
-        return FunctionFactory.create((String) key).calculate(map.values().iterator().next(), this.context);
+        return FunctionFactory.singleton.create((String) key).calculate(map.values().iterator().next(), this.context);
     }
 
     private void setValue(Object javaObject, Field field, Class<? extends Annotation> anno) {

@@ -76,6 +76,6 @@ public class FnNotation implements Fn {
     }
 
     public String getFnName() {
-        return NOTATION;
+        return this.getClass().getSimpleName();
     }
 }
