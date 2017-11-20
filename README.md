@@ -279,3 +279,39 @@ node_templates:
     artifacts:
       zip: /data/wordpress.zip
 ```
+
+### Extend functions
+
+#### constraint
+用于判断两个值是否满足某种条件
+
+**语法**
+```yaml
+constraint: { operator: [expectedValue, presentValue]}
+```
+
+**参数**
+
+|名称|必须？|类型|描述|
+|:---|:---|:---|:---|
+|operator|yes|string|约束名称|
+|expectedValue|yes|any|期望值|
+|presentValue|yes|any|实际值|
+
+**样例**
+```yaml
+node_templates:
+ 
+  wordpress:
+    type: tosca.nodes.WebApplication.WordPress
+    ...
+    interfaces:
+      Standard:
+        configure:
+          create:
+            implementation: wordpress_install.sh
+            inputs
+              wp_zip: { get_artifact: [ SELF, zip ] }
+    artifacts:
+      zip: /data/wordpress.zip
+```

@@ -54,4 +54,6 @@ public interface FunctionKeywords {
     String GET_OPERATION_OUTPUT = FN_KEYWORDS.getProperty("GET_OPERATION_OUTPUT", "get_operation_output");
     String GET_NODES_OF_TYPE = FN_KEYWORDS.getProperty("GET_NODES_OF_TYPE", "get_nodes_of_type");
     String GET_ARTIFACT = FN_KEYWORDS.getProperty("GET_ARTIFACT", "get_artifact");
+    // extend
+    String CONSTRAINT = FN_KEYWORDS.getProperty("CONSTRAINT", "constraint");
 }
