@@ -1,8 +1,8 @@
 package com.dijkspicy.easyfunction.fn;
 
 import com.dijkspicy.easyfunction.Fn;
-import com.dijkspicy.easyfunction.FunctionException;
 import com.dijkspicy.easyfunction.constraint.ConstraintFactory;
+import com.dijkspicy.easyfunction.error.FunctionException;
 import com.dijkspicy.easyfunction.util.OptionalCollection;
 import com.dijkspicy.easyfunction.util.OptionalString;
 import org.apache.commons.lang3.Validate;

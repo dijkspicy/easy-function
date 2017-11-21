@@ -1,4 +1,4 @@
-package com.dijkspicy.easyfunction;
+package com.dijkspicy.easyfunction.error;
 
 /**
  * easy-function

@@ -3,7 +3,7 @@ package com.dijkspicy.easyfunction.fn;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.dijkspicy.easyfunction.Fn;
-import com.dijkspicy.easyfunction.FunctionException;
+import com.dijkspicy.easyfunction.error.FunctionException;
 import com.dijkspicy.easyfunction.util.OptionalString;
 import com.dijkspicy.easyfunction.util.PatternEscaper;
 

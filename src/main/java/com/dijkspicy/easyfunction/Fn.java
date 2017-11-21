@@ -1,5 +1,6 @@
 package com.dijkspicy.easyfunction;
 
+import com.dijkspicy.easyfunction.error.FunctionException;
 import com.dijkspicy.easyfunction.fn.FunctionContext;
 
 /**
