@@ -311,7 +311,5 @@ node_templates:
           create:
             implementation: wordpress_install.sh
             inputs
-              wp_zip: { get_artifact: [ SELF, zip ] }
-    artifacts:
-      zip: /data/wordpress.zip
+              test: { constraint: [ equal, test, test ] }
 ```
