@@ -9,6 +9,7 @@ package com.dijkspicy.easyfunction.constraint;
 public class ConsGreaterOrEqual extends BaseConstraint {
     @Override
     public boolean check(Object presentValue) {
-        return this.expectedValue == presentValue;
+        return (this.expectedValue instanceof Comparable && presentValue instanceof Comparable)
+                && ((Comparable) presentValue).compareTo(this.expectedValue) >= 0;
     }
 }
