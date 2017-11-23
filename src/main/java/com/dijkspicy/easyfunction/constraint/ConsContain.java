@@ -17,14 +17,27 @@ public class ConsContain extends BaseConstraint {
 
     @Override
     public boolean check(Object presentValue) {
-        Collection<?> presentCol;
-        if (presentValue instanceof Collection) {
-            presentCol = (Collection<?>) presentValue;
-        } else {
-            presentCol = Collections.singletonList(presentValue);
+        if (!(presentValue instanceof Collection)) {
+            return false;
         }
 
-        final BaseConstraint equal = new ConsEqual().setExpectedValue(this.expectedValue);
-        return presentCol.stream().anyMatch(equal::check);
+        List<Object> expectedCollection = new ArrayList<>();
+        if (this.expectedValue instanceof Collection) {
+            expectedCollection.addAll((Collection<?>) this.expectedValue);
+        } else {
+            expectedCollection.add(this.expectedValue);
+        }
+
+        /*
+        表示期望值的每一个值都需要在当前值的列表中
+         */
+        Collection<?> presentCollection = (Collection) presentValue;
+        for (Object exp : expectedCollection) {
+            // real list包含condition的每一个值
+            if (presentCollection.stream().noneMatch(it -> new ConsEqual().compare(it, exp))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
