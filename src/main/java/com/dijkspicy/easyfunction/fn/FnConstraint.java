@@ -20,7 +20,7 @@ public class FnConstraint implements Fn {
     @Override
     public Object calculate(Object param, FunctionContext context) throws FunctionException {
         Parameters parameters = this.convert(param);
-        return ConstraintFactory.singleton.create(parameters.operator, parameters.expectedValue).check(parameters.presentValue);
+        return ConstraintFactory.singleton.create(parameters.operator).check(parameters.expectedValue, parameters.presentValue);
     }
 
     private Parameters convert(Object param) {

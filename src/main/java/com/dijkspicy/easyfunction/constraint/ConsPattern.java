@@ -6,9 +6,9 @@ package com.dijkspicy.easyfunction.constraint;
  * @Author dijkspicy
  * @Date 2017/11/21
  */
-public class ConsPattern extends BaseConstraint {
+public class ConsPattern implements Constraint {
     @Override
-    public boolean check(Object presentValue) {
-        return this.expectedValue == presentValue;
+    public boolean check(Object expectedValue, Object presentValue) {
+        return String.valueOf(presentValue).matches(String.valueOf(expectedValue));
     }
 }

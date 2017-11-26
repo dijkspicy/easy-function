@@ -1,15 +1,24 @@
 package com.dijkspicy.easyfunction.constraint;
 
+import com.alibaba.fastjson.JSON;
+
+import java.util.Collection;
+import java.util.Objects;
+
 /**
  * easy-function
  *
  * @Author dijkspicy
  * @Date 2017/11/21
  */
-public class ConsEqual extends BaseConstraint {
+public class ConsEqual implements Constraint {
+
     @Override
-    public boolean check(Object presentValue) {
-        return this.compare(this.expectedValue, presentValue);
+    public boolean check(Object expectedValue, Object presentValue) {
+        return Objects.equals(expectedValue, presentValue)
+                || this.compareList(expectedValue, presentValue)
+                || this.compareNumber(expectedValue, presentValue)
+                || this.compareDifferentType(expectedValue, presentValue);
     }
 
     private boolean compare(Object o1, Object o2) {

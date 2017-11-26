@@ -2,6 +2,7 @@ package com.dijkspicy.easyfunction.constraint;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Key;
 import com.google.inject.name.Names;
 
 /**
@@ -14,10 +15,10 @@ public enum ConstraintFactory {
     singleton;
 
     private Injector injector = Guice.createInjector(binder -> {
-        binder.bind(BaseConstraint.class).annotatedWith(Names.named("equal")).to(ConsEqual.class);
+        binder.bind(Constraint.class).annotatedWith(Names.named("equal")).to(ConsEqual.class);
     });
 
-    public BaseConstraint create(String operator, Object expectedValue) {
-        return null;
+    public Constraint create(String operator) {
+        return this.injector.getInstance(Key.get(Constraint.class, Names.named(operator)));
     }
 }

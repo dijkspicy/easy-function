@@ -6,9 +6,9 @@ package com.dijkspicy.easyfunction.constraint;
  * @Author dijkspicy
  * @Date 2017/11/21
  */
-public class ConsValidValues extends BaseConstraint {
+public class ConsValidValues implements Constraint {
     @Override
-    public boolean check(Object presentValue) {
-        return this.expectedValue == presentValue;
+    public boolean check(Object expectedValue, Object presentValue) {
+        return new ConsContain().check(presentValue, expectedValue);
     }
 }

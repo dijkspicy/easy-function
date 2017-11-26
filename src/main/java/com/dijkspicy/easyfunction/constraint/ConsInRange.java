@@ -1,7 +1,6 @@
 package com.dijkspicy.easyfunction.constraint;
 
-import com.dijkspicy.easyfunction.error.ConstraintException;
-import com.dijkspicy.easyfunction.util.OptionalCollection;
+import java.util.Collection;
 
 /**
  * easy-function
@@ -9,14 +8,25 @@ import com.dijkspicy.easyfunction.util.OptionalCollection;
  * @Author dijkspicy
  * @Date 2017/11/21
  */
-public class ConsInRange extends BaseConstraint {
-    @Override
-    public boolean check(Object presentValue) {
-        Object[] array = OptionalCollection.ofSizable(this.expectedValue, 2)
-                .orElseThrow(() -> new ConstraintException(this.getConsName() + " must contain 2 values at least: " + presentValue))
-                .toArray();
+public class ConsInRange implements Constraint {
 
-        return new ConsGreaterOrEqual().setExpectedValue(array[0]).check(presentValue)
-                && new ConsLessOrEqual().setExpectedValue(array[1]).check(presentValue);
+    @Override
+    public boolean check(Object expectedValue, Object presentValue) {
+        if (expectedValue instanceof Collection) {
+            Collection<?> collection = (Collection<?>) expectedValue;
+            boolean isContain = collection.stream()
+                    .anyMatch(any -> new ConsEqual().check(presentValue, any));
+            if (!isContain) {
+                if (collection.size() == 2) {
+                    Object[] array = collection.toArray();
+                    Object from = array[0];
+                    Object to = array[1];
+                    return new ConsLessOrEqual().check(to, presentValue) && new ConsGreaterOrEqual().check(from, presentValue);
+                }
+            }
+            return isContain;
+        }
+
+        return new ConsEqual().check(expectedValue, presentValue);
     }
 }
