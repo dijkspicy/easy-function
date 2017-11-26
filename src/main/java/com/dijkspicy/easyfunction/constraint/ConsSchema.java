@@ -1,7 +1,5 @@
 package com.dijkspicy.easyfunction.constraint;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Collection;
 import java.util.Map;
 
@@ -48,19 +46,14 @@ public class ConsSchema implements Constraint {
             }
 
             Object schemaValue = expectedMap.get(schemaKey);
-            if (!this.isNull(schemaValue) && !this.check(schemaValue, presentMap.get(schemaKey))) {
+            if (this.isValid(schemaValue) && !this.check(schemaValue, presentMap.get(schemaKey))) {
                 return false;
             }
         }
         return false;
     }
 
-    private boolean isNull(Object value) {
-        return value == null
-                || (value instanceof Number && ((Number) value).intValue() == 0)
-                || (value instanceof Map && ((Map) value).size() == 0)
-                || (value instanceof Collection && ((Collection) value).size() == 0)
-                || (value instanceof String && StringUtils.isBlank((CharSequence) value))
-                || StringUtils.isBlank(String.valueOf(value));
+    private boolean isValid(Object value) {
+        return value instanceof Map || value instanceof Collection;
     }
 }
