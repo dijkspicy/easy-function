@@ -310,6 +310,6 @@ node_templates:
         configure:
           create:
             implementation: wordpress_install.sh
-            inputs
-              test: { constraint: [ equal, test, test ] }
+            inputs:
+              test: { constraint: {equal: [ test, test ] }}
 ```
