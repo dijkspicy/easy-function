@@ -23,16 +23,6 @@ public interface FunctionKeywords {
             }
         }
     };
-    Properties FN_REGISTER = new Properties() {
-        {
-            InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("function-register.properties");
-            try {
-                FN_KEYWORDS.load(stream);
-            } catch (IOException e) {
-                LoggerFactory.getLogger("function-register.properties").error("failed to load function-register.properties, error: " + e.getMessage(), e);
-            }
-        }
-    };
 
     String SOURCE = "SOURCE";
     String TARGET = "TARGET";
