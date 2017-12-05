@@ -3,7 +3,6 @@ package com.dijkspicy.easyfunction;
 import com.dijkspicy.easyfunction.fn.*;
 import com.google.inject.*;
 import com.google.inject.name.Names;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Hashtable;
@@ -33,30 +32,6 @@ public enum FunctionFactory implements FunctionKeywords {
         this.registerFunction(GET_OPERATION_OUTPUT, FnGetOperationOutput.class, Scopes.SINGLETON);
         this.registerFunction(GET_NODES_OF_TYPE, FnGetNodesOfType.class, Scopes.SINGLETON);
         this.registerFunction(GET_ARTIFACT, FnGetArtifact.class, Scopes.SINGLETON);
-
-        FN_REGISTER.forEach((k, v) -> {
-            Scope scope = Scopes.NO_SCOPE;
-            String value = String.valueOf(v);
-            if (value.startsWith("!")) {
-                value = value.replaceFirst("^!", "");
-                scope = Scopes.SINGLETON;
-            }
-            try {
-                Class<?> clazz = Class.forName(value);
-                if (Fn.class.isAssignableFrom(clazz)) {
-                    Object instance = clazz.newInstance();
-                    if (instance instanceof Fn) {
-                        String key = String.valueOf(k);
-                        @SuppressWarnings("unchecked")
-                        Class<? extends Fn> fnClass = (Class<? extends Fn>) clazz;
-                        FN_REGISTERED.put(key, new FnRegister(key, fnClass, scope));
-                    }
-                }
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-                LoggerFactory.getLogger(FunctionFactory.class).error("failed to register fnClass: " + k + "=" + v + "\n" +
-                        "error: " + e.getMessage(), e);
-            }
-        });
     }
 
     public Fn create(String fnName) {
@@ -75,13 +50,8 @@ public enum FunctionFactory implements FunctionKeywords {
         }
     }
 
-    public <T extends Fn> void registerFunction(String name, Class<T> fnClass, Scope scope) {
+    private <T extends Fn> void registerFunction(String name, Class<T> fnClass, Scope scope) {
         this.FN_REGISTERED.put(name, new FnRegister(name, fnClass, scope));
-        this.resetInjector();
-    }
-
-    private void resetInjector() {
-        this.injector = null;
     }
 
     private class FnRegister {
